@@ -1,20 +1,29 @@
 import modelsData from "../data/models.json";
 import type { Model } from "../types";
+import { GetModelsParams } from "../types";
 
-// ✅ Отримати всі моделі
-export async function getAllModels(): Promise<Model[]> {
-  // JSON already loaded via import, so it's instant
-  return modelsData as Model[];
+export async function getModels({ category }: GetModelsParams = {}): Promise<Model[]> {
+  // This is where you'd write code to fetch the list
+  // of models from a database. We're mocking that with
+  // our JSON array of data in models.json for now.
+  let filteredModels = [...modelsData]
+  if (category) {
+    filteredModels = modelsData.filter(
+      (model: Model) => model.category === category
+    )
+  }
+  return filteredModels
 }
 
-// ✅ Отримати одну модель за ID
 export async function getModelById(id: string | number): Promise<Model> {
-  const allModels = modelsData as Model[];
-  const foundModel = allModels.find((model) => model.id.toString() === id.toString());
+  const stringId = id.toString()
+  const foundModel = (modelsData as Model[]).find(
+    (model) => model.id.toString() === stringId
+  )
 
   if (!foundModel) {
-    throw new Error(`Model with id ${id} not found`);
+    throw new Error(`Model with id ${id} not found`)
   }
 
-  return foundModel;
+  return foundModel
 }

@@ -11,6 +11,15 @@ export type Model = {
   dateAdded: string
 }
 
+export type Category = {
+    displayName: string
+    slug: string
+}
+
+export type CategoriesData = {
+    categories: Category[]
+}
+
 // Page Types
 export type RootLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -21,13 +30,38 @@ export type ModelDetailPageProps = {
         id: string
     }>
 }
+export type CategoryPageProps = {
+  params: Promise<{categoriesName: string}>
+  searchParams: Promise<{search: string}>
+}
 
 // Components Types
 export type ModelCardProps = {
     model: Model
 }
 
+export type ModelsPageProps = {
+    searchParams: {
+        query?: string
+    }
+}
+
+export type ModelsGridProps = {
+    title: string
+    models: Model[]
+}
+
+export type GetModelsParams = {
+    category?: string
+}
+
 export type PillProps = {
     children: ReactNode
     className?: string
+}
+
+export type NavLinkProps = {
+    href: string
+    children: ReactNode
+    isActive?: boolean
 }
